@@ -21,7 +21,7 @@ import com.cabral.listadetarefas.ui.theme.ListaDeTarefasTheme
 
 @Composable
 fun AddEditScreen() {
-
+    AddEditComponent()
 }
 
 @Composable

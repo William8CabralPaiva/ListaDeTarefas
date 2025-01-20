@@ -24,17 +24,23 @@ import com.cabral.listadetarefas.ui.components.TodoItem
 import com.cabral.listadetarefas.ui.theme.ListaDeTarefasTheme
 
 @Composable
-fun ListScreen() {
-    ListContent(todos = emptyList())
+fun ListScreen(
+    navigateAddEditScreen: (id: Long?) -> Unit
+) {
+    ListContent(
+        todos = emptyList(),
+        onAddItemClick = navigateAddEditScreen
+    )
 }
 
 @Composable
 fun ListContent(
-    todos: List<Todo>
+    todos: List<Todo>,
+    onAddItemClick: (id: Long?) -> Unit
 ) {
     Scaffold(
         floatingActionButton = {
-            FloatingActionButton(onClick = {}) {
+            FloatingActionButton(onClick = { onAddItemClick(null) }) {
                 Icon(Icons.Filled.Add, contentDescription = "Add")
             }
         }
@@ -65,7 +71,7 @@ fun ListContent(
 private fun ListContentPreview() {
     ListaDeTarefasTheme {
         val list = listOf(todo1, todo2, todo3)
-        ListContent(list)
+        ListContent(list, onAddItemClick = {})
     }
 
 }
