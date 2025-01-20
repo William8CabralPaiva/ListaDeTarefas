@@ -25,7 +25,7 @@ import com.cabral.listadetarefas.ui.theme.ListaDeTarefasTheme
 
 @Composable
 fun ListScreen() {
-
+    ListContent(todos = emptyList())
 }
 
 @Composable
