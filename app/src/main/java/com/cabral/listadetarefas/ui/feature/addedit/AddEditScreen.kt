@@ -30,6 +30,7 @@ import com.cabral.listadetarefas.ui.theme.ListaDeTarefasTheme
 
 @Composable
 fun AddEditScreen(
+    id: Long?,
     navigateBack: () -> Unit
 ) {
     val context = LocalContext.current.applicationContext
@@ -37,7 +38,7 @@ fun AddEditScreen(
     val repository = TodoRepositoryImpl(dao = database.dao)
 
     val viewModel = viewModel<AddEditViewModel> {
-        AddEditViewModel(repository)
+        AddEditViewModel(repository,id)
     }
 
     //remember para não perder o estado do snackbar

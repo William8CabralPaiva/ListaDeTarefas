@@ -12,7 +12,8 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 
 class AddEditViewModel(
-    private val repository: TodoRepository
+    private val repository: TodoRepository,
+    private val id: Long?
 ) : ViewModel() {
 
     var title by mutableStateOf("")
@@ -20,6 +21,17 @@ class AddEditViewModel(
 
     var description by mutableStateOf<String?>(null)
         private set
+
+    init {
+        id?.let {
+            viewModelScope.launch {
+                repository.getBy(it)?.let { todo ->
+                    title = todo.title
+                    description = todo.description
+                }
+            }
+        }
+    }
 
     // o Channel é usado para se comunicar com a Ui
     private val _uiEvent = Channel<UIEvent>()
@@ -46,7 +58,7 @@ class AddEditViewModel(
             if (title.isBlank()) {
                 _uiEvent.send(UIEvent.ShowSnackBar("O título não pode estar em branco"))
             } else {
-                repository.insert(title, description)
+                repository.insert(title, description, id)
                 _uiEvent.send(UIEvent.NavigateBack)
             }
         }
