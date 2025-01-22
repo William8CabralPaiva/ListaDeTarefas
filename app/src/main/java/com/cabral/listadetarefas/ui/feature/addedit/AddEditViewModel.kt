@@ -13,8 +13,10 @@ import kotlinx.coroutines.launch
 
 class AddEditViewModel(
     private val repository: TodoRepository,
-    private val id: Long?
+   // private val id: Long?
 ) : ViewModel() {
+
+    val id:Long =0
 
     var title by mutableStateOf("")
         private set

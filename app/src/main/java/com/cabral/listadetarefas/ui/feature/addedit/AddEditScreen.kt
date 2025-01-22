@@ -27,19 +27,15 @@ import com.cabral.listadetarefas.data.TodoDatabaseProvider
 import com.cabral.listadetarefas.data.TodoRepositoryImpl
 import com.cabral.listadetarefas.ui.UIEvent
 import com.cabral.listadetarefas.ui.theme.ListaDeTarefasTheme
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun AddEditScreen(
     id: Long?,
     navigateBack: () -> Unit
 ) {
-    val context = LocalContext.current.applicationContext
-    val database = TodoDatabaseProvider.provide(context)
-    val repository = TodoRepositoryImpl(dao = database.dao)
 
-    val viewModel = viewModel<AddEditViewModel> {
-        AddEditViewModel(repository,id)
-    }
+    val viewModel: AddEditViewModel = koinViewModel()
 
     //remember para não perder o estado do snackbar
     val snackBarHostState = remember { SnackbarHostState() }

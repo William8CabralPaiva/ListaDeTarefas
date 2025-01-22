@@ -3,7 +3,6 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.ksp)
     alias(libs.plugins.compose.compiler)
-    alias(libs.plugins.hilt.android)
     kotlin("plugin.serialization") version libs.versions.kotlin
 }
 
@@ -76,8 +75,9 @@ dependencies {
     implementation(libs.androidx.lifecycle.runtime.compose)
 
     // Dagger Hilt
-    implementation(libs.hilt.android)
-    ksp(libs.hilt.android.compiler)
+    implementation(libs.koin.core)
+    implementation(libs.koin.android)
+    implementation(libs.koin.compose)
 
     // Kotlinx Serialization
     implementation(libs.kotlinx.serialization.json)

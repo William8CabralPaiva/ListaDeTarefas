@@ -27,20 +27,16 @@ import com.cabral.listadetarefas.model.todo2
 import com.cabral.listadetarefas.model.todo3
 import com.cabral.listadetarefas.ui.UIEvent
 import com.cabral.listadetarefas.ui.components.TodoItem
+import com.cabral.listadetarefas.ui.feature.addedit.AddEditViewModel
 import com.cabral.listadetarefas.ui.navigation.AddEditRoute
 import com.cabral.listadetarefas.ui.theme.ListaDeTarefasTheme
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun ListScreen(
     navigateAddEditScreen: (id: Long?) -> Unit
 ) {
-    val context = LocalContext.current.applicationContext
-    val database = TodoDatabaseProvider.provide(context)
-    val repository = TodoRepositoryImpl(dao = database.dao)
-
-    val viewModel = viewModel<ListViewModel> {
-        ListViewModel(repository)
-    }
+    val viewModel: ListViewModel = koinViewModel()
 
     //transformar em estado
     //como esta com flow apenas de adicionar ja aparece na tela anterior não preciso tratar pra att a lista
