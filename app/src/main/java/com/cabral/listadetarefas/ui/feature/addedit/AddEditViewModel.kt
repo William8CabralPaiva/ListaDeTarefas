@@ -13,10 +13,9 @@ import kotlinx.coroutines.launch
 
 class AddEditViewModel(
     private val repository: TodoRepository,
-   // private val id: Long?
 ) : ViewModel() {
 
-    val id:Long =0
+    private var id: Long? = null
 
     var title by mutableStateOf("")
         private set
@@ -49,6 +48,11 @@ class AddEditViewModel(
                 description = event.description
             }
 
+            is AddEditEvent.SetId ->{
+                id = event.id
+                fillData()
+            }
+
             is AddEditEvent.Save -> {
                 saveTodo()
             }
@@ -62,6 +66,17 @@ class AddEditViewModel(
             } else {
                 repository.insert(title, description, id)
                 _uiEvent.send(UIEvent.NavigateBack)
+            }
+        }
+    }
+
+    private fun fillData() {
+        id?.let {
+            viewModelScope.launch {
+                repository.getBy(it)?.let { todo ->
+                    title = todo.title
+                    description = todo.description
+                }
             }
         }
     }

@@ -42,6 +42,8 @@ fun AddEditScreen(
 
     //serve para executar apenas uma unica vez na criação
     LaunchedEffect(Unit) {
+        viewModel.onEvent(AddEditEvent.SetId(id))
+
         viewModel.uiEvent.collect {
             when (it) {
 
