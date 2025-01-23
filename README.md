@@ -1,4 +1,4 @@
-# Listade Tarefas com Jetpack Compose, Flow e Koin
+# Lista de Tarefas com Jetpack Compose, Flow e Koin
 
 Este projeto é uma aplicação simples de lista de tarefas desenvolvida em Kotlin com o objetivo de aprimorar o uso de Jetpack Compose, Flow e Koin.
 
