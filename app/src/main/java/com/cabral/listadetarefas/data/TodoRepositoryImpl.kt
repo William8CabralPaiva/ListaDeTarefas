@@ -1,14 +1,17 @@
 package com.cabral.listadetarefas.data
 
+import com.cabral.listadetarefas.data.database.TodoDao
+import com.cabral.listadetarefas.data.database.TodoEntity
 import com.cabral.listadetarefas.model.Todo
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import javax.inject.Inject
 
-class TodoRepositoryImpl(
+class TodoRepositoryImpl @Inject constructor(
     private val dao: TodoDao,
 ) : TodoRepository {
 
-    override suspend fun insert(title: String, description: String?,id: Long?) {
+    override suspend fun insert(title: String, description: String?, id: Long?) {
         val entity = id?.let {
             dao.getBy(it)?.copy(
                 title = title,

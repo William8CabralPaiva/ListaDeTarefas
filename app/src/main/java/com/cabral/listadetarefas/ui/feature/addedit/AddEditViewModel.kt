@@ -3,18 +3,26 @@ package com.cabral.listadetarefas.ui.feature.addedit
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.toRoute
 import com.cabral.listadetarefas.data.TodoRepository
 import com.cabral.listadetarefas.ui.UIEvent
+import com.cabral.listadetarefas.ui.navigation.AddEditRoute
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class AddEditViewModel(
-    private val repository: TodoRepository,
-    private val id: Long?
+@HiltViewModel
+class AddEditViewModel @Inject constructor(
+    savedStateHandle: SavedStateHandle,
+    private val repository: TodoRepository
 ) : ViewModel() {
+
+    private val addEditRoute = savedStateHandle.toRoute<AddEditRoute>()
 
     var title by mutableStateOf("")
         private set
@@ -23,7 +31,7 @@ class AddEditViewModel(
         private set
 
     init {
-        id?.let {
+        addEditRoute.id?.let {
             viewModelScope.launch {
                 repository.getBy(it)?.let { todo ->
                     title = todo.title
@@ -58,7 +66,7 @@ class AddEditViewModel(
             if (title.isBlank()) {
                 _uiEvent.send(UIEvent.ShowSnackBar("O título não pode estar em branco"))
             } else {
-                repository.insert(title, description, id)
+                repository.insert(title, description, addEditRoute.id)
                 _uiEvent.send(UIEvent.NavigateBack)
             }
         }

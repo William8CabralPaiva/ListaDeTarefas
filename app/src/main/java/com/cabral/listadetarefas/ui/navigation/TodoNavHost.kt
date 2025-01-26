@@ -4,7 +4,6 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.toRoute
 import com.cabral.listadetarefas.ui.feature.addedit.AddEditScreen
 import com.cabral.listadetarefas.ui.feature.list.ListScreen
 import kotlinx.serialization.Serializable
@@ -26,10 +25,10 @@ fun TodoNavHost() {
                 })
         }
 
-        composable<AddEditRoute> { backStackEntry ->
-            val addEditRoute = backStackEntry.toRoute<AddEditRoute>()
+        composable<AddEditRoute> {
+            //val addEditRoute = it.toRoute<AddEditRoute>()
+            //NOTE com isso consigo capturar os dados passados
             AddEditScreen(
-                id = addEditRoute.id,
                 navigateBack = {
                     navController.popBackStack()
                 }

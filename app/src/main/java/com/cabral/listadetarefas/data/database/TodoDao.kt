@@ -1,4 +1,4 @@
-package com.cabral.listadetarefas.data
+package com.cabral.listadetarefas.data.database
 
 import androidx.room.Dao
 import androidx.room.Delete

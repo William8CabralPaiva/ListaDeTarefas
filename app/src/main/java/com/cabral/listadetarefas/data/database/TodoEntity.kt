@@ -1,4 +1,4 @@
-package com.cabral.listadetarefas.data
+package com.cabral.listadetarefas.data.database
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

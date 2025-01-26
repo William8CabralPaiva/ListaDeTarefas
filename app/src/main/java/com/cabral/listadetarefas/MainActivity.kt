@@ -9,7 +9,9 @@ import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.ui.Modifier
 import com.cabral.listadetarefas.ui.navigation.TodoNavHost
 import com.cabral.listadetarefas.ui.theme.ListaDeTarefasTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

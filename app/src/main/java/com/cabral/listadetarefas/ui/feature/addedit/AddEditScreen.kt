@@ -22,24 +22,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.cabral.listadetarefas.data.TodoDatabaseProvider
 import com.cabral.listadetarefas.data.TodoRepositoryImpl
 import com.cabral.listadetarefas.ui.UIEvent
 import com.cabral.listadetarefas.ui.theme.ListaDeTarefasTheme
 
 @Composable
 fun AddEditScreen(
-    id: Long?,
+    viewModel: AddEditViewModel = hiltViewModel(),
     navigateBack: () -> Unit
 ) {
-    val context = LocalContext.current.applicationContext
-    val database = TodoDatabaseProvider.provide(context)
-    val repository = TodoRepositoryImpl(dao = database.dao)
-
-    val viewModel = viewModel<AddEditViewModel> {
-        AddEditViewModel(repository,id)
-    }
 
     //remember para não perder o estado do snackbar
     val snackBarHostState = remember { SnackbarHostState() }
